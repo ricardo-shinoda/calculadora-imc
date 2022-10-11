@@ -63,11 +63,38 @@ const data = [
     heightInput.value = "";
     weightInput.value = "";
   }
+// function para limitar o tipo de caracter a ser digitado
+  function validDigits(text) {
+    return text.replace(/[^0-9,]/g, "");
+  }
   //! Inicialization
   createTable(data);
 
 
   //! Events
+
+  // Evento para limitar o tipo de caracter a ser digitado.
+  [heightInput, weightInput].forEach((el) => {
+    el.addEventListener("input", (e) => {
+      const updatedValue = validDigits(e.target.value);
+      e.target.value = updatedValue;
+    })
+  })
+
+  calcBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const weight = +weightInput.value.replace(",", ".");
+    const height = +heightInput.value.replace(",", ".");
+
+    if (!weight || !height) return;
+    const imc = calcImc(weight, height);
+    console.log(imc);
+  })
+
+  function calcImc(weight, height) {
+    const imc = (weight / (height * height)).toFixed(1);
+    return imc;
+  }
 
   clearBtn.addEventListener("click", (e) => {
     e.preventDefault();
