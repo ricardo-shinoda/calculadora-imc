@@ -58,6 +58,18 @@ const data = [
         imcTable.appendChild(div);
     });
   }
+
+  function clearInputs() {
+    heightInput.value = "";
+    weightInput.value = "";
+  }
   //! Inicialization
   createTable(data);
+
+
   //! Events
+
+  clearBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    clearInputs();
+  });
